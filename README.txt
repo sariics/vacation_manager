@@ -13,7 +13,7 @@ For this app to work you will have to have the following installed:
     - user: Jane Doe, pw: Jane123
     - user: Bilbo Beutlin, pw: Bilbo123
     - user: Arno Duebel, pw: Arno123
-    User any of the above to log into the users account.
+    Use any of the above to log into the users account.
     Here you can create new vacation requestes and delete pending ones.
 
 Note:
