@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Home</h1>
+
+    <h1>Welcome <em>{{ name }}</em> !</h1>
+    <h2>Vacation Requests</h2>
+    <h3>New Vacation Request</h3>
+    <p class="notetouser">Please enter new vacation request here</p>
+    <form action="/add_request" method="post">
+        <input type="hidden" id="username" name="username" value="{{ name }}">
+        <label for="startdate">Start of vacation:</label><br>
+        <input type="date" id="startdate" name="startdate" min={{today}}><br><br>
+        <label for="enddate">End of vacation:</label><br>
+        <input type="date" id="enddate" name="enddate" max={{date_max}}><br><br>
+        <label for="specialleave">Do you want to request special leave?</label><br>
+        <input type="checkbox" name="specialleave" id="specialleave" value="specialtrue"><br><br>
+        <input type="submit">
+    </form>
+    <h3>Pending Requests</h3>
+    {% for request in pending %}
+    <table style="width:100%">
+        <tr>+
+            <th>Vacation Start</th>
+            <th>Vacation End</th>
+            <th>Vacation Days</th>
+        </tr>
+        <tr>
+            <td>{{ request.vacation_start }}</td>
+            <td>{{ request.vacation_end }}</td>
+            <td>{{ request.requested_leave }}</td>
+        </tr>
+    </table>
+    <a class="ui red button" href="/delete/{{request.request_id}}?name={{name}}">delete</a>
+    <br>
+
+    {% endfor %}
+    <h3>Approved Requests</h3>
+    {% for request in approved %}
+    <table style="width:100%">
+        <tr>
+            <th>Vacation Start</th>
+            <th>Vacation End</th>
+            <th>Vacation Days</th>
+        </tr>
+        <tr>
+            <td>{{ request.vacation_start }}</td>
+            <td>{{ request.vacation_end }}</td>
+            <td>{{ request.requested_leave }}</td>
+        </tr>
+    </table>
+    <br>
+    {% endfor %}
+
+    <h2>Your Vacation Overview</h2>
+    <h3>Total Requested Vacation</h3>
+    {{requested_total}}
+    <h3>Remaining Vacation Days</h3>
+    {{remaining}}
+
+{% endblock %}
