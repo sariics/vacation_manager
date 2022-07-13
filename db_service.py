@@ -1,8 +1,9 @@
 from pymongo import MongoClient
 from datetime import datetime
+from typing import Union
 
 db_connection_string = "mongodb://localhost:27017/"
-client = MongoClient(db_connection_string)
+client: MongoClient = MongoClient(db_connection_string)
 
 if "vacation_management" not in client.list_database_names():
     db = client["vacation_management"]
@@ -77,14 +78,14 @@ def create_database():
     employee_vacation.insert_many(user_entry_examples)
 
 
-def get_user_data(user: str):
-    user_data = employee_vacation.find_one(
+def get_user_data(user: str) -> dict:
+    user_data: dict = employee_vacation.find_one(
         {"name": user}, {"vac_current_year": 0, "vac_leftover_last_year": 0}
     )
-    return user_data  # {"name":name, "requested_total":requested_days_total, "remaining":remaining_vac_days, "pending":pending_requests, "approved":approved_requests}
+    return user_data
 
 
-def check_user_credentials(name: str, password: str):
+def check_user_credentials(name: str, password: str) -> Union[str, bool]:
     if employee_vacation.find_one({"name": name, "password": password}):
         return name
     return False

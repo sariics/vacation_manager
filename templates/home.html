@@ -11,9 +11,9 @@
     <form action="/add_request" method="post">
         <input type="hidden" id="username" name="username" value="{{ name }}">
         <label for="startdate">Start of vacation:</label><br>
-        <input type="date" id="startdate" name="startdate" min={{today}}><br><br>
+        <input type="date" id="startdate" name="startdate" min={{today}} max={{date_max}}><br><br>
         <label for="enddate">End of vacation:</label><br>
-        <input type="date" id="enddate" name="enddate" max={{date_max}}><br><br>
+        <input type="date" id="enddate" name="enddate" min={{today}} max={{date_max}}><br><br>
         <label for="specialleave">Do you want to request special leave?</label><br>
         <input type="checkbox" name="specialleave" id="specialleave" value="specialtrue"><br><br>
         <input type="submit">
@@ -21,7 +21,7 @@
     <h3>Pending Requests</h3>
     {% for request in pending %}
     <table style="width:100%">
-        <tr>+
+        <tr>
             <th>Vacation Start</th>
             <th>Vacation End</th>
             <th>Vacation Days</th>
@@ -55,8 +55,8 @@
 
     <h2>Your Vacation Overview</h2>
     <h3>Total Requested Vacation</h3>
-    {{requested_total}}
+    <p class="info">{{requested_total}}</p>
     <h3>Remaining Vacation Days</h3>
-    {{remaining}}
+    <p class="info">{{remaining}}</p>
 
 {% endblock %}

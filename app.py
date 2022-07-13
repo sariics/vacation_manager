@@ -1,3 +1,5 @@
+from ast import Call
+from typing import Callable
 from db_service import (
     create_database,
     add_request_to_db,
@@ -19,7 +21,7 @@ create_database()
 
 
 @app.route("/")
-def home() -> render_template:
+def home() -> Callable:
     auth = request.authorization
     user = check_user_credentials(name=auth.username, password=auth.password)
     if user:
@@ -52,7 +54,7 @@ def home() -> render_template:
 # User können neue Urlaubsanträge stellen
 @app.route("/add_request", methods=["POST"])
 @auth_required
-def add_request() -> redirect:
+def add_request() -> Callable:
     user = request.form.get("username")
     start_date = datetime.strptime(request.form.get("startdate"), "%Y-%m-%d")
     end_date = datetime.strptime(request.form.get("enddate"), "%Y-%m-%d")
@@ -77,8 +79,8 @@ def add_request() -> redirect:
 # User können Urlaubsanträge löschen, solange sie noch nicht genehmigt sind
 @app.route("/delete/<int:request_id>")
 @auth_required
-def delete(request_id) -> redirect:
-    user = request.args.get("name")
+def delete(request_id) -> Callable:
+    user: str = request.args.get("name")
     delete_user_vac_request(name=user, request_id=request_id)
 
     return redirect(url_for("home"))
