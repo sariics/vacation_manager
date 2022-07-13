@@ -20,3 +20,4 @@ Note:
 - One should never store or upload user credentials like this, this is only a small sample project.
 - MongoDB will store the database that is created when running this app in the path
 you specified when downloading MongoDB.
+- This was developed and tested with firefox browser. The behavior in other browsers might be faulty.
